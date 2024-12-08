@@ -1,6 +1,3 @@
-<<<<<<< HEAD
-# Simple-Study
-=======
 # Simple Study
 
 ## About the Project
@@ -63,7 +60,7 @@ Simple Study is a web application designed to help students organize their acade
 
 ## Usage
 
-A video guide for using Simple Study is available on YouTube: !!!!!!!!
+A video guide for using Simple Study is available on YouTube: https://youtu.be/LH6WX4S88vU
 
 ---
 
@@ -74,6 +71,9 @@ Features for Simple Study include:
 1. To-Do List:
    - Add, edit, and delete tasks easily
    - Mark tasks as completed
+
+3. History page:
+   - All deleted tasks are displayed with timestamps
 
 2. Study Method Quiz:
    - Take an interactive quiz to find out the best study methods for you
@@ -103,4 +103,3 @@ Diana Senkivskyy - @Senkivskyy
 Janelle Souro - @SouroJ
 
 Project Link: https://github.com/SouroJ/Simple-Study.git
->>>>>>> 0668ba1 (Initial commit: Add all project files)

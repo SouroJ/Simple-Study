@@ -32,7 +32,8 @@ User --> Browser --> Flask App --> SQLite Database
 Simple-Study/
 │
 ├── app.py               # Main Flask application
-├── style.css            # CSS styles for frontend
+├── static/   
+│   ├── style.css        # CSS styles for frontend
 ├── users.db             # SQLite database file
 ├── templates/           # HTML templates (frontend views)
 │   ├── dashbaord.html   # To-Do List page
@@ -92,17 +93,25 @@ Simple-Study/
 #### Users Table:
 | Field         | Type     | Description                   |
 |---------------|----------|-------------------------------|
-| `id`          | Integer  | Primary Key                  |
-| `username`    | Text     | Unique username              |
-| `password`    | Text     | Hashed password              |
+| `id`          | Integer  | Primary Key                   |
+| `username`    | Text     | Unique username               |
+| `password`    | Text     | Hashed password               |
 
 #### Tasks Table:
 | Field         | Type     | Description                   |
 |---------------|----------|-------------------------------|
-| `id`          | Integer  | Primary Key                  |
-| `user_id`     | Integer  | Foreign Key to Users table   |
-| `task`        | Text     | Task description             |
-| `completed`   | Boolean  | Task completion status       |
+| `id`          | Integer  | Primary Key                   |
+| `user_id`     | Integer  | Foreign Key to Users table    |
+| `task`        | Text     | Task description              |
+| `completed`   | Boolean  | Task completion status        |
+
+#### History Table:
+| Field         | Type     | Description                   |
+|---------------|----------|-------------------------------|
+| `id`          | Integer  | Primary Key                   |
+| `user_id`     | Integer  | Foreign Key to Users table    |
+| `task`        | Text     | Task description              |
+| `time_added`  | Text     | Time task was added by user   |
 
 ---
 
