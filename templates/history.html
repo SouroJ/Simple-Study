@@ -1,0 +1,24 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    History
+{% endblock %}
+
+{% block main %}
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th class="text-start">Task</th>
+                <th class="text-end">Time added</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for task, time_added in time_tasks %}
+            <tr>
+                <td class="text-start">{{ task }}</td>
+                <td class="text-end">{{ time_added }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

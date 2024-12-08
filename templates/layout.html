@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <title>{% block title %} Dashboard {% endblock %}</title>
+</head>
+<body class="bg">
+    {% if request.path not in ['/login', '/signup'] %}
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          {% if session["user_id"] %}
+            <!-- Navbar when the user is logged in -->
+            <div class="navbar-header">
+              <a class="navbar-brand" href="/dashboard">
+                S
+                <!-- Font Awesome Leaf Icon Positioned Above "i" -->
+                <span style="position: relative; font-size: 48px;">
+                    <i class="fas fa-leaf" style="color: #588157; font-size: 30px; position: absolute; top: -22px; left: 5px;"></i>
+                    <span style="position: relative; top: 0px;">i</span>
+                </span>
+                m p l e  S t u d y
+              </a>
+            </div>
+            <ul class="nav navbar-nav">
+              <li class="active"><a href="/dashboard">Dashboard</a></li>
+              <li><a href="/history">History</a></li>  
+              <li><a href="/quiz">Quiz</a></li>
+              <li><a href="/logout"><span class="glyphicon glyphicon-log-out"></span> Logout</a></li>
+            </ul>
+          {% else %}
+            <!-- Navbar when the user is logged out (on any page except login/signup) -->
+            <ul class="nav navbar-nav navbar-right">
+              <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+              <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+            </ul>
+          {% endif %}
+        </div>
+      </nav>
+    {% else %}
+      <!-- Display only the Login and Sign Up links on /login and /signup pages -->
+      <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="/signup"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+            <li><a href="/login"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          </ul>
+        </div>
+      </nav>
+    {% endif %}
+
+    <main class="container py-5 text-center">
+        {% block main %}{% endblock %}
+    </main>
+    
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
+</html>

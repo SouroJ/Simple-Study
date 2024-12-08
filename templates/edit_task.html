@@ -1,0 +1,14 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Edit Task
+{% endblock %}
+
+{% block main %}
+    <h1>Edit Task</h1>
+    <form action="/edit/{{ task_id }}" method="POST">
+        <input type="text" name="task" value="{{ task_text }}" required>
+        <button type="submit">Save Changes</button>
+    </form>
+    <a href="/dashboard">Back to Dashboard</a>
+{% endblock %}

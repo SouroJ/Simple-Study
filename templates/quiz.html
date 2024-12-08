@@ -1,0 +1,240 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Quiz
+{% endblock %}
+
+{% block main %}
+    <header>
+        <h1>Study Technique Quiz</h1>
+        <p>Take the quiz below to find out which study technique most suits you.</p>      
+    </header>
+
+    <main>
+        <div class="question-container">
+            <h2>What subject are you studying for?</h2>
+            <div class="button-container">
+                <button id="q1a1">Science or Math.</button>
+                <button id="q1a2">History or Literature.</button>
+                <button id="q1a3">Languages or Vocabulary.</button>
+                <button id="q1a4">Mixed subjects.</button>
+            </div>
+        </div>
+
+        <div class="question-container">
+            <h2>How do you usually study?</h2>
+            <div class="button-container">
+                <button id="q2a1">I like to read through my notes and textbooks repeatedly.</button>
+                <button id="q2a2">I try to summarize what I've learned in my own words.</button>
+                <button id="q2a3">I often quiz myself or use flashcards to test my knowledge.</button>
+                <button id="q2a4">I work in short increments, then take a break and come back later.</button>
+            </div>
+        </div>
+
+        <div class="question-container">
+            <h2>When do you study most effectively?</h2>
+            <div class="button-container">
+                <button id="q3a1">I need to focus for long periods of time, with minimal interruptions.</button>
+                <button id="q3a2">I study best when I am reviewing and summarizing things multiple times.</button>
+                <button id="q3a3">I study best with active quizzing, spaced out over time.</button>
+                <button id="q3a4">I need breaks often to stay focused and refreshed.</button>
+            </div>
+        </div>
+        
+        <div class="question-container">
+            <h2>How do you typically remember information?</h2>
+            <div class="button-container">
+                <button id="q4a1">I rely on repetition and seeing the material multiple times.</button>
+                <button id="q4a2">I find it easiest to remember information when I can explain it to someone else.</button>
+                <button id="q4a3">I find it easier for me to remember information after testing myself on it.</button>
+                <button id="q4a4">I remember information the best when I give myself time to reflect and think in between times of studying.</button>
+            </div>
+        </div>
+
+        <div class="question-container">
+            <h2>If you were to rate your motivation levels, how do you feel about studying?</h2>
+            <div class="button-container">
+                <button id="q5a1">I tend to get very focused, but it's hard to sustain attention for long.</button>
+                <button id="q5a2">I feel engaged as long as I understand the material clearly and can explain it.</button>
+                <button id="q5a3">I am motivated when I can test myself and see my progress.</button>
+                <button id="q5a4">I work best in bursts, so long as I feel like I've made progress after each break.</button>
+            </div>
+        </div>
+
+        <h2 id="result">You should use the...</h2>
+        <p id="description"></p>
+        <button id="restart">Click to restart.</button>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initializing variables for the different types of techniques
+            var active_score = 0;
+            var feynman_score = 0;
+            var spaced_score = 0;
+            var pm_score= 0;
+
+            // To keep track of the questions answered
+            var question_count = 0;
+
+            // The variables below retrieve the element in the html with the respective ID
+            var q1a1 = document.getElementById("q1a1");
+            var q1a2 = document.getElementById("q1a2");
+            var q1a3 = document.getElementById("q1a3");
+            var q1a4 = document.getElementById("q1a4");
+
+            var q2a1 = document.getElementById("q2a1");
+            var q2a2 = document.getElementById("q2a2");
+            var q2a3 = document.getElementById("q2a3");
+            var q2a4 = document.getElementById("q2a4");
+
+            var q3a1 = document.getElementById("q3a1");
+            var q3a2 = document.getElementById("q3a2");
+            var q3a3 = document.getElementById("q3a3");
+            var q3a4 = document.getElementById("q3a4");
+
+            var q4a1 = document.getElementById("q4a1");
+            var q4a2 = document.getElementById("q4a2");
+            var q4a3 = document.getElementById("q4a3");
+            var q4a4 = document.getElementById("q4a4");
+
+            var q5a1 = document.getElementById("q5a1");
+            var q5a2 = document.getElementById("q5a2");
+            var q5a3 = document.getElementById("q5a3");
+            var q5a4 = document.getElementById("q5a4");
+
+            var result = document.getElementById("result");
+
+            var description = document.getElementById("description");
+
+            var restart = document.getElementById("restart");
+
+            // The events below wait for the user to click a response, and it runs the function associated with the variable
+            q1a1.addEventListener("click", active);
+            q1a2.addEventListener("click", feynman);
+            q1a3.addEventListener("click", spaced);
+            q1a4.addEventListener("click", pm);
+
+            q2a1.addEventListener("click", active);
+            q2a2.addEventListener("click", feynman);
+            q2a3.addEventListener("click", spaced);
+            q2a4.addEventListener("click", pm);
+            
+            q3a1.addEventListener("click", active);
+            q3a2.addEventListener("click", feynman);
+            q3a3.addEventListener("click", spaced);
+            q3a4.addEventListener("click", pm);
+
+            q4a1.addEventListener("click", active);
+            q4a2.addEventListener("click", feynman);
+            q4a3.addEventListener("click", spaced);
+            q4a4.addEventListener("click", pm);
+
+            q5a1.addEventListener("click", active);
+            q5a2.addEventListener("click", feynman);
+            q5a3.addEventListener("click", spaced);
+            q5a4.addEventListener("click", pm);
+            
+            restart.addEventListener("click", quiz_restart);
+
+            // When the specific buttons are clicked, the scores of the techniques go up by one
+            function active () {
+                active_score += 1;
+                question_count += 1;
+
+                if (question_count === 5) {
+                    updateResult();
+                }
+            }
+
+            function feynman () {
+                feynman_score += 1;
+                question_count += 1;
+
+                if (question_count === 5) {
+                    updateResult();
+                }
+            }
+
+            function spaced () {
+                spaced_score += 1;
+                question_count += 1;
+
+                if (question_count === 5) {
+                    updateResult();
+                }
+            }
+
+            function pm () {
+                pm_score += 1;
+                question_count += 1;
+
+                if (question_count === 5) {
+                    updateResult();
+                }
+            }
+
+            // If one of the techniques is a majority, that is the one that gets reccomended; if there is a tie, multiple techniques are displayed
+            function updateResult () {
+                // This finds the max score
+                var max = Math.max(active_score, feynman_score, spaced_score, pm_score);
+                
+                // Empty array for the recommended techniques
+                var recommendation = [];
+
+                if (active_score === max) {
+                    recommendation.push("Active Recall Technique");
+                }
+                if (feynman_score === max) {
+                    recommendation.push("Feynman Technique");
+                }
+                if (spaced_score === max) {
+                    recommendation.push("Spaced Repetition Technique");
+                }
+                if (pm_score === max) {
+                    recommendation.push("Pomodoro Technique or Mind Mapping Technique");
+                }
+
+                // If it is a majority, only one technique is outputted
+                if (recommendation.length === 1) {
+                    result.innerHTML = "You should use the " + recommendation[0] + ".";
+                    description.innerHTML = get_description(recommendation[0]);
+                }
+                // If it is tied, multiple techniques are outputted
+                else {
+                    result.innerHTML = "You should use one of the following techniques: " + recommendation.join(" or ") + ".";
+                    description.innerHTML = "You may benefit from using both of these while you are studying";
+                }
+            }
+
+            // Outputs the description based on the recommended technique
+            function get_description(technique) {
+                switch (technique) {
+                    case "Active Recall Technique":
+                        return "You likely will study best by using a technique that pushes you to have active engagement with the material and through repetition. Trying to recall and teach the information from memory will solidify your knowledge more than passively reading.";
+                    case "Feynman Technique":
+                        return "You likely will study best by explaining concepts in your own words, which will help you process information deeply. You're someone who thrives on understanding things from a broad perspective, and simplifying complex ideas makes them clearer.";
+                    case "Spaced Repetition Technique":
+                        return "You likely will study best by using flashcards or apps like Quizlet to help you test your memory over time. Repeating information at increasing intervals helps you retain it more effectively.";
+                    case "Pomodoro Technique or Mind Mapping Technique":
+                        return "You likely will study best by studying in short, focused bursts and taking breaks to stay productive. Using the Pomodoro Technique will help you manage your focus, while Mind Mapping can organize your thoughts in a visual way, helping you see the connections between ideas.";
+                    default:
+                        return "";
+                }
+            }
+
+            // Resets all the variables, so that the quiz can be retaken
+            function quiz_restart () {
+                question_count = 0;
+                active_score = 0;
+                feynman_score = 0;
+                spaced_score = 0;
+                pm_score = 0;
+                result.innerHTML = "You should use the...";
+                description.innerHTML = "";
+            }
+            // Resets the quiz
+            quiz_restart();
+        }); 
+    </script>
+{% endblock %}
